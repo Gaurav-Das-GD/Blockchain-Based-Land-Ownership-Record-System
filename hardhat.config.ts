@@ -1,10 +1,16 @@
-import type { HardhatUserConfig } from "hardhat/config";
-import HardhatToolboxMochaEthers from "@nomicfoundation/hardhat-toolbox-mocha-ethers";
+import hardhatToolboxMochaEthersPlugin from "@nomicfoundation/hardhat-toolbox-mocha-ethers";
+import { defineConfig } from "hardhat/config";
 import "dotenv/config";
 
-const config: HardhatUserConfig = {
-  solidity: "0.8.28",
-  plugins: [HardhatToolboxMochaEthers],
+export default defineConfig({
+  plugins: [hardhatToolboxMochaEthersPlugin],
+  solidity: {
+    profiles: {
+      default: {
+        version: "0.8.28",
+      },
+    },
+  },
   networks: {
     sepolia: {
       type: "http",
@@ -16,6 +22,4 @@ const config: HardhatUserConfig = {
       url: "http://127.0.0.1:8545",
     },
   },
-};
-
-export default config;
+});
