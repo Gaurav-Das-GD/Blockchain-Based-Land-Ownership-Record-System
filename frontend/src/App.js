@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { WalletProvider } from "./context/WalletContext";
 import LandingPage from "./pages/LandingPage";
+import RegisterPage from "./pages/RegisterPage";
+import PendingPage from "./pages/PendingPage";
 
 function App() {
   return (
@@ -9,7 +11,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          {/* More routes will be added in upcoming days */}
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/pending" element={<PendingPage />} />
         </Routes>
       </Router>
     </WalletProvider>
