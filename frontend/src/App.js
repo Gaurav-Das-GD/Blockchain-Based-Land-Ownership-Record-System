@@ -7,6 +7,8 @@ import PendingPage from "./pages/PendingPage";
 import UserDashboard from "./pages/UserDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import InspectorDashboard from "./pages/InspectorDashboard";
+import RegisterLand from "./pages/RegisterLand";
+import ManageInspectors from "./pages/ManageInspectors";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/pending" element={<PendingPage />} />
           <Route path="/user/dashboard" element={<UserDashboard />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/register-land" element={<RegisterLand />} />
+          <Route path="/admin/inspectors" element={<ManageInspectors />} />
           <Route path="/inspector/dashboard" element={<InspectorDashboard />} />
         </Routes>
       </Router>
