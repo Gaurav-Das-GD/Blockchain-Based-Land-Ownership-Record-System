@@ -9,6 +9,8 @@ import AdminDashboard from "./pages/AdminDashboard";
 import InspectorDashboard from "./pages/InspectorDashboard";
 import RegisterLand from "./pages/RegisterLand";
 import ManageInspectors from "./pages/ManageInspectors";
+import VerifyUsers from "./pages/VerifyUsers";
+import VerifyLands from "./pages/VerifyLands";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
           <Route path="/admin/register-land" element={<RegisterLand />} />
           <Route path="/admin/inspectors" element={<ManageInspectors />} />
           <Route path="/inspector/dashboard" element={<InspectorDashboard />} />
+          <Route path="/inspector/verify-users" element={<VerifyUsers />} />
+          <Route path="/inspector/verify-lands" element={<VerifyLands />} />
         </Routes>
       </Router>
     </WalletProvider>
