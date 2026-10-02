@@ -11,6 +11,8 @@ import RegisterLand from "./pages/RegisterLand";
 import ManageInspectors from "./pages/ManageInspectors";
 import VerifyUsers from "./pages/VerifyUsers";
 import VerifyLands from "./pages/VerifyLands";
+import Marketplace from "./pages/Marketplace";
+import MyLands from "./pages/MyLands";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/pending" element={<PendingPage />} />
           <Route path="/user/dashboard" element={<UserDashboard />} />
+          <Route path="/user/my-lands" element={<MyLands />} />
+          <Route path="/user/marketplace" element={<Marketplace />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/register-land" element={<RegisterLand />} />
           <Route path="/admin/inspectors" element={<ManageInspectors />} />
