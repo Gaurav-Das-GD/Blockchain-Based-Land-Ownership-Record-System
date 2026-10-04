@@ -1,5 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { WalletProvider } from "./context/WalletContext";
 import LandingPage from "./pages/LandingPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -37,6 +40,8 @@ function App() {
           <Route path="/inspector/verify-lands" element={<VerifyLands />} />
         </Routes>
       </Router>
+      {/* This enables beautiful popup notifications across the whole app */}
+      <ToastContainer position="bottom-right" theme="dark" autoClose={4000} />
     </WalletProvider>
   );
 }
