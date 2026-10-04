@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 import LandRegistryJSON from "./LandRegistry.json";
 
 // Replace this with your deployed contract address later
-const CONTRACT_ADDRESS = "YOUR_CONTRACT_ADDRESS_HERE";
+const CONTRACT_ADDRESS = "0xEb287783e716FD62Fd6fc44929107f469Df1B636";
 
 export const getProvider = () => {
   if (!window.ethereum) {
