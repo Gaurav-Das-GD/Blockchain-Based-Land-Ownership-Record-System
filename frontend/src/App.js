@@ -18,6 +18,7 @@ import Marketplace from "./pages/Marketplace";
 import MyLands from "./pages/MyLands";
 import TransferRequests from "./pages/TransferRequests";
 import SearchLand from "./pages/SearchLand";
+import UserProfile from "./pages/UserProfile";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
           <Route path="/inspector/dashboard" element={<InspectorDashboard />} />
           <Route path="/inspector/verify-users" element={<VerifyUsers />} />
           <Route path="/inspector/verify-lands" element={<VerifyLands />} />
+          <Route path="/user/profile" element={<UserProfile />} />
         </Routes>
       </Router>
       {/* This enables beautiful popup notifications across the whole app */}
