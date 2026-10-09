@@ -21,6 +21,7 @@ import SearchLand from "./pages/SearchLand";
 import UserProfile from "./pages/UserProfile";
 import AdminLands from "./pages/AdminLands";
 import AdminUsers from "./pages/AdminUsers";
+import Explorer from "./pages/Explorer";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
           <Route path="/user/profile" element={<UserProfile />} />
           <Route path="/admin/lands" element={<AdminLands />} />
           <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/explorer" element={<Explorer />} />
         </Routes>
       </Router>
       {/* This enables beautiful popup notifications across the whole app */}

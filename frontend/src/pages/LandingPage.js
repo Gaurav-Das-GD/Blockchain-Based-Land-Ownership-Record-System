@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { WalletContext } from "../context/WalletContext";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 const LandingPage = () => {
   const { account, role, loading, connectWallet } = useContext(WalletContext);
@@ -44,13 +43,23 @@ const LandingPage = () => {
           </div>
         </div>
 
-        <button
-          style={styles.connectBtn}
-          onClick={connectWallet}
-          disabled={loading}
-        >
-          {loading ? "Connecting..." : "🦊 Connect MetaMask Wallet"}
-        </button>
+        {/* Both buttons are now inside this container */}
+        <div style={styles.buttonContainer}>
+          <button
+            style={styles.connectBtn}
+            onClick={connectWallet}
+            disabled={loading}
+          >
+            {loading ? "Connecting..." : "🦊 Connect MetaMask Wallet"}
+          </button>
+
+          <button
+            style={styles.exploreBtn}
+            onClick={() => navigate("/explorer")}
+          >
+            🌍 Open Public Explorer
+          </button>
+        </div>
 
         {account && (
           <p style={styles.connected}>
@@ -98,12 +107,28 @@ const styles = {
     borderRadius: "12px",
     backdropFilter: "blur(10px)",
   },
+  buttonContainer: {
+    display: "flex",
+    justifyContent: "center",
+    gap: "20px",
+    flexWrap: "wrap",
+  },
   connectBtn: {
     padding: "15px 40px",
     fontSize: "1.2rem",
     background: "#f6851b",
     color: "white",
     border: "none",
+    borderRadius: "10px",
+    cursor: "pointer",
+    fontWeight: "bold",
+  },
+  exploreBtn: {
+    padding: "15px 40px",
+    fontSize: "1.2rem",
+    background: "transparent",
+    color: "white",
+    border: "2px solid #f6851b",
     borderRadius: "10px",
     cursor: "pointer",
     fontWeight: "bold",
