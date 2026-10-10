@@ -79,7 +79,11 @@ const Explorer = () => {
         ) : (
           <div style={styles.grid}>
             {filteredLands.map(land => (
-              <div key={land.id} style={styles.card}>
+              <div 
+                key={land.id} 
+                style={{...styles.card, cursor: "pointer"}} 
+                onClick={() => navigate(`/land/${land.id}`)}
+              >
                 <div style={styles.cardHeader}>
                   <span style={styles.landId}>Land #{land.id}</span>
                   {land.isForSale && <span style={styles.saleBadge}>🛒 For Sale</span>}

@@ -22,6 +22,7 @@ import UserProfile from "./pages/UserProfile";
 import AdminLands from "./pages/AdminLands";
 import AdminUsers from "./pages/AdminUsers";
 import Explorer from "./pages/Explorer";
+import LandDetails from "./pages/LandDetails";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
           <Route path="/admin/lands" element={<AdminLands />} />
           <Route path="/admin/users" element={<AdminUsers />} />
           <Route path="/explorer" element={<Explorer />} />
+          <Route path="/land/:id" element={<LandDetails />} />
         </Routes>
       </Router>
       {/* This enables beautiful popup notifications across the whole app */}
