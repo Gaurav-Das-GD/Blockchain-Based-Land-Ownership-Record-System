@@ -14,6 +14,7 @@ import RegisterLand from "./pages/RegisterLand";
 import ManageInspectors from "./pages/ManageInspectors";
 import VerifyUsers from "./pages/VerifyUsers";
 import VerifyLands from "./pages/VerifyLands";
+import InspectorTransfers from "./pages/InspectorTransfers";
 import Marketplace from "./pages/Marketplace";
 import MyLands from "./pages/MyLands";
 import TransferRequests from "./pages/TransferRequests";
@@ -43,6 +44,7 @@ function App() {
           <Route path="/inspector/dashboard" element={<InspectorDashboard />} />
           <Route path="/inspector/verify-users" element={<VerifyUsers />} />
           <Route path="/inspector/verify-lands" element={<VerifyLands />} />
+          <Route path="/inspector/transfers" element={<InspectorTransfers />} />
           <Route path="/user/profile" element={<UserProfile />} />
           <Route path="/admin/lands" element={<AdminLands />} />
           <Route path="/admin/users" element={<AdminUsers />} />
@@ -50,7 +52,6 @@ function App() {
           <Route path="/land/:id" element={<LandDetails />} />
         </Routes>
       </Router>
-      {/* This enables beautiful popup notifications across the whole app */}
       <ToastContainer position="bottom-right" theme="dark" autoClose={4000} />
     </WalletProvider>
   );
