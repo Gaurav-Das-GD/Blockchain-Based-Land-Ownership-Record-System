@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { WalletContext } from "../context/WalletContext";
+import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 
 const adminMenu = [
@@ -8,10 +9,12 @@ const adminMenu = [
   { label: "Manage Inspectors", path: "/admin/inspectors", icon: "👮" },
   { label: "All Users", path: "/admin/users", icon: "👥" },
   { label: "All Lands", path: "/admin/lands", icon: "📊" },
+  { label: "Analytics", path: "/admin/stats", icon: "📈" },
 ];
 
 const AdminDashboard = () => {
   const { account, contract } = useContext(WalletContext);
+  const navigate = useNavigate();
   const [stats, setStats] = useState({
     totalLands: 0,
     totalTransfers: 0,
@@ -57,17 +60,20 @@ const AdminDashboard = () => {
         <div style={styles.quickActions}>
           <h2 style={styles.sectionTitle}>⚡ Quick Actions</h2>
           <div style={styles.actionsGrid}>
-            <button style={styles.actionBtn} onClick={() => window.location.href = "/admin/register-land"}>
+            <button style={styles.actionBtn} onClick={() => navigate("/admin/register-land")}>
               🏞️ Register New Land
             </button>
-            <button style={styles.actionBtn} onClick={() => window.location.href = "/admin/inspectors"}>
+            <button style={styles.actionBtn} onClick={() => navigate("/admin/inspectors")}>
               👮 Manage Inspectors
             </button>
-            <button style={styles.actionBtn} onClick={() => window.location.href = "/admin/users"}>
+            <button style={styles.actionBtn} onClick={() => navigate("/admin/users")}>
               👥 View All Users
             </button>
-            <button style={styles.actionBtn} onClick={() => window.location.href = "/admin/lands"}>
+            <button style={styles.actionBtn} onClick={() => navigate("/admin/lands")}>
               📊 View All Lands
+            </button>
+            <button style={styles.actionBtn} onClick={() => navigate("/admin/stats")}>
+              📈 View Analytics
             </button>
           </div>
         </div>
@@ -87,7 +93,7 @@ const styles = {
   statLabel: { color: "#aaa", fontSize: "0.9rem" },
   sectionTitle: { fontSize: "1.3rem", marginBottom: "15px" },
   quickActions: { marginTop: "10px" },
-  actionsGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "15px" },
+  actionsGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "15px" },
   actionBtn: {
     padding: "20px",
     background: "rgba(255,255,255,0.06)",

@@ -22,6 +22,7 @@ import SearchLand from "./pages/SearchLand";
 import UserProfile from "./pages/UserProfile";
 import AdminLands from "./pages/AdminLands";
 import AdminUsers from "./pages/AdminUsers";
+import AdminStats from "./pages/AdminStats";
 import Explorer from "./pages/Explorer";
 import LandDetails from "./pages/LandDetails";
 
@@ -48,6 +49,7 @@ function App() {
           <Route path="/user/profile" element={<UserProfile />} />
           <Route path="/admin/lands" element={<AdminLands />} />
           <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/admin/stats" element={<AdminStats />} />
           <Route path="/explorer" element={<Explorer />} />
           <Route path="/land/:id" element={<LandDetails />} />
         </Routes>
