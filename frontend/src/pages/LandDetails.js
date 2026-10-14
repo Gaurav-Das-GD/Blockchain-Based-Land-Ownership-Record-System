@@ -9,6 +9,7 @@ const LandDetails = () => {
   const [land, setLand] = useState(null);
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [verifyStatus, setVerifyStatus] = useState(null); // "match" | "mismatch" | null
 
   useEffect(() => {
     const fetchLandAndHistory = async () => {
@@ -16,7 +17,6 @@ const LandDetails = () => {
       if (!contract) return;
       try {
         setLoading(true);
-        // 1. Fetch Land Information
         const data = await contract.getLandDetails(parseInt(id));
         setLand({
           id: Number(data.id),
@@ -26,14 +26,12 @@ const LandDetails = () => {
           area: Number(data.area),
           price: ethers.formatEther(data.price),
           propertyId: data.propertyId,
+          documentHash: data.documentHash,
           isVerified: data.isVerified,
           isForSale: data.isForSale,
         });
 
-        // 2. Query Blockchain Events for Provenance History
         const timeline = [];
-
-        // Check LandRegistered event
         const regFilter = contract.filters.LandRegistered(parseInt(id));
         const regEvents = await contract.queryFilter(regFilter);
         if (regEvents.length > 0) {
@@ -47,7 +45,6 @@ const LandDetails = () => {
           });
         }
 
-        // Check TransferCompleted events
         const transferFilter = contract.filters.TransferCompleted();
         const allTransfers = await contract.queryFilter(transferFilter);
         const landTransfers = allTransfers.filter(
@@ -75,6 +72,28 @@ const LandDetails = () => {
 
     fetchLandAndHistory();
   }, [id]);
+
+  // Verify an uploaded file against the on-chain documentHash
+  const handleVerifyDocument = async (e) => {
+    const file = e.target.files[0];
+    if (!file || !land) return;
+
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      const hashBuffer = await crypto.subtle.digest("SHA-256", arrayBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const computedHash =
+        "0x" + hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+
+      if (computedHash.toLowerCase() === land.documentHash.toLowerCase()) {
+        setVerifyStatus("match");
+      } else {
+        setVerifyStatus("mismatch");
+      }
+    } catch (err) {
+      console.error("Error verifying document:", err);
+    }
+  };
 
   return (
     <div style={styles.container}>
@@ -132,6 +151,30 @@ const LandDetails = () => {
               <div style={styles.ownerBox}>
                 👤 {land.owner}
               </div>
+            </div>
+
+            {/* Cryptographic Document Verification Section */}
+            <div style={styles.docBox}>
+              <h3 style={styles.docTitle}>🛡️ Deed Document Fingerprint (SHA-256 / IPFS)</h3>
+              <p style={styles.docHash}>
+                <strong>On-Chain Hash:</strong> {land.documentHash || "N/A"}
+              </p>
+              <div style={styles.verifyRow}>
+                <label style={styles.verifyLabel}>
+                  Verify a physical/PDF deed file against the blockchain record:
+                </label>
+                <input type="file" onChange={handleVerifyDocument} style={{ color: "#ccc" }} />
+              </div>
+              {verifyStatus === "match" && (
+                <div style={styles.matchAlert}>
+                  ✅ <strong>AUTHENTIC DOCUMENT!</strong> The uploaded file's SHA-256 hash matches the immutable blockchain record.
+                </div>
+              )}
+              {verifyStatus === "mismatch" && (
+                <div style={styles.mismatchAlert}>
+                  ❌ <strong>TAMPERED OR INVALID DOCUMENT!</strong> This file does NOT match the hash recorded on the blockchain.
+                </div>
+              )}
             </div>
 
             {/* Marketplace Banner */}
@@ -222,6 +265,13 @@ const styles = {
   value: { fontSize: "1.2rem", fontWeight: "bold" },
   ownerSection: { marginTop: "20px" },
   ownerBox: { background: "rgba(76, 175, 80, 0.1)", color: "#4caf50", padding: "15px", borderRadius: "12px", marginTop: "10px", fontFamily: "monospace", fontSize: "1rem", wordBreak: "break-all" },
+  docBox: { marginTop: "25px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", padding: "20px", borderRadius: "12px" },
+  docTitle: { margin: "0 0 10px 0", fontSize: "1.1rem" },
+  docHash: { fontFamily: "monospace", fontSize: "0.85rem", color: "#2196f3", wordBreak: "break-all", background: "rgba(0,0,0,0.3)", padding: "10px", borderRadius: "8px" },
+  verifyRow: { marginTop: "12px" },
+  verifyLabel: { display: "block", color: "#aaa", fontSize: "0.85rem", marginBottom: "8px" },
+  matchAlert: { marginTop: "12px", background: "rgba(76, 175, 80, 0.15)", border: "1px solid #4caf50", color: "#4caf50", padding: "12px", borderRadius: "8px", fontSize: "0.9rem" },
+  mismatchAlert: { marginTop: "12px", background: "rgba(244, 67, 54, 0.15)", border: "1px solid #f44336", color: "#f44336", padding: "12px", borderRadius: "8px", fontSize: "0.9rem" },
   buyBanner: { marginTop: "30px", background: "rgba(33, 150, 243, 0.1)", border: "1px solid rgba(33, 150, 243, 0.3)", padding: "20px", borderRadius: "12px", display: "flex", justifyContent: "space-between", alignItems: "center" },
   buyBtn: { background: "#2196f3", color: "white", border: "none", padding: "10px 20px", borderRadius: "8px", cursor: "pointer", fontWeight: "bold" },
   historySection: { marginTop: "40px", borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: "30px" },
