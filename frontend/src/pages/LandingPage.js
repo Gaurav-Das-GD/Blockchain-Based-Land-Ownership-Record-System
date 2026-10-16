@@ -6,6 +6,7 @@ const LandingPage = () => {
   const { account, role, loading, connectWallet } = useContext(WalletContext);
   const navigate = useNavigate();
 
+  // Redirect users based on their role once the wallet is connected
   useEffect(() => {
     if (account && role) {
       if (role === "admin") navigate("/admin/dashboard");
@@ -43,7 +44,7 @@ const LandingPage = () => {
           </div>
         </div>
 
-        {/* Both buttons are now inside this container */}
+        {/* Buttons: Connect wallet + open public explorer */}
         <div style={styles.buttonContainer}>
           <button
             style={styles.connectBtn}
